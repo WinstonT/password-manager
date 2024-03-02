@@ -1,8 +1,8 @@
 interface Entry {
-  id: number;
-  website: string;
-  username: string;
-  password: string;
+  ID: number;
+  Website: string;
+  Username: string;
+  Password: string;
 }
 
 export default Entry;
