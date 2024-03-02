@@ -67,6 +67,8 @@ func DeleteEntry(c *gin.Context) {
 		ID int32
 	}
 
+	c.Bind(&body)
+
 	var entry models.Entry
 	data.DB.First(&entry, body.ID)
 
