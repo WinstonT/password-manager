@@ -2,33 +2,17 @@
 
 import { useState, useCallback, FormEvent, useRef } from "react";
 import AddEntryButton from "./AddEntryButton";
-import Entry from "@/types/Entry";
 
-export default function AddEntryArea(): JSX.Element {
+import { handleSubmit } from "@/actions/actions";
+
+export default function AddEntryArea() {
   const ref = useRef<HTMLFormElement>(null);
 
   const [isAdding, setAdding] = useState(false);
-  const [entry, setEntry] = useState<Entry | null>(null);
 
   const onClick = useCallback(() => {
     setAdding(!isAdding);
   }, [isAdding]);
-
-  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    const data = new FormData(event.currentTarget);
-    const response = await fetch(`${process.env.API_URL}`, {
-      headers: {
-        key: "Access-Control-Allow-Origin",
-      },
-      mode: "no-cors",
-      method: "POST",
-      body: data,
-      credentials: "include",
-    });
-
-    const { entry } = await response.json();
-    return entry;
-  };
 
   return (
     <>
@@ -40,9 +24,12 @@ export default function AddEntryArea(): JSX.Element {
         <div className="mt-2 mb-4 p-4 rounded-lg shadow-md border">
           <form
             className="flex flex-row items-end"
-            onSubmit={onSubmit}
-            method="POST"
             ref={ref}
+            action={async (formData) => {
+              ref.current?.reset();
+              await handleSubmit(formData);
+            }}
+            method="POST"
           >
             <div className="flex flex-col">
               <label className="text-gray-500 text-xs">Website</label>
@@ -50,7 +37,6 @@ export default function AddEntryArea(): JSX.Element {
                 type="text"
                 className="border border-gray-500 rounded-md"
                 name="Website"
-                value={entry?.Password}
               />
             </div>
             <div className="flex flex-col ml-4">
@@ -59,7 +45,6 @@ export default function AddEntryArea(): JSX.Element {
                 type="text"
                 className="border border-gray-500 rounded-md"
                 name="Username"
-                value={entry?.Username}
               />
             </div>
             <div className="flex flex-col ml-4">
@@ -68,7 +53,6 @@ export default function AddEntryArea(): JSX.Element {
                 type="password"
                 className="border border-gray-500 rounded-md"
                 name="Password"
-                value={entry?.Password}
               />
             </div>
             <div className="flex-1" />
