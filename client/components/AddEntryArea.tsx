@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, FormEvent, useRef } from "react";
+import { useState, useCallback, useRef } from "react";
 import AddEntryButton from "./AddEntryButton";
 
 import { handleSubmit } from "@/actions/actions";
@@ -19,7 +19,7 @@ export default function AddEntryArea(this: any) {
     <>
       <div className="flex flex-row">
         <div className="flex-1" />
-        <AddEntryButton onClick={onClick} />
+        <AddEntryButton onClick={onClick} isAdding={isAdding} />
       </div>
       {isAdding && (
         <div className="mt-2 mb-4 p-4 rounded-lg shadow-md border">
