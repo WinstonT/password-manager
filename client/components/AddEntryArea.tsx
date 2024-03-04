@@ -47,8 +47,7 @@ export default function AddEntryArea(this: any) {
                 type="text"
                 className="border border-gray-500 rounded-md"
                 name="Username"
-                autoComplete="off"
-                readOnly
+                autoComplete="none"
               />
             </div>
             <div className="flex flex-col ml-4">
@@ -57,8 +56,7 @@ export default function AddEntryArea(this: any) {
                 type="password"
                 className="border border-gray-500 rounded-md"
                 name="Password"
-                autoComplete="off"
-                readOnly
+                autoComplete="new-password"
               />
             </div>
             <div className="flex-1" />
