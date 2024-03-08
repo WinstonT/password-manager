@@ -8,7 +8,7 @@ import (
 
 func GetAllEntries(c *gin.Context) {
 	var entries []models.Entry
-	result := data.DB.Order("created_at asc").Find(&entries)
+	result := data.DB.Order("Website asc").Find(&entries)
 
 	if result.Error != nil {
 		c.Status(400)
