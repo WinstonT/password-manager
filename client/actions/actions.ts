@@ -5,11 +5,12 @@ import axios from "axios";
 import { revalidatePath } from "next/cache";
 
 export async function getEntriesData(): Promise<Entry[]> {
-  const response = await fetch(`${process.env.API_URL}`, {
-    method: "GET",
+  const response = await axios.get(`${process.env.API_URL}`).then((res) => {
+    revalidatePath("/");
+    return res;
   });
 
-  const { entries } = await response.json();
+  const { entries } = await response.data;
   return entries;
 }
 
@@ -24,7 +25,7 @@ export const handleSubmit = async (formData: FormData) => {
       username,
       password,
     })
-    .then((res) => console.log(res.data));
-
-  revalidatePath("/");
+    .then(() => {
+      revalidatePath("/");
+    });
 };
