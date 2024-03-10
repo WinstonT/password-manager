@@ -3,7 +3,7 @@
 import { useState, useCallback, useRef } from "react";
 import AddEntryButton from "./AddEntryButton";
 
-import { handleSubmit } from "@/actions/actions";
+import { createEntry } from "@/actions/actions";
 
 export default function AddEntryArea(this: any) {
   const ref = useRef<HTMLFormElement>(null);
@@ -28,7 +28,7 @@ export default function AddEntryArea(this: any) {
             ref={ref}
             action={async (formData) => {
               ref.current?.reset();
-              await handleSubmit(formData);
+              await createEntry(formData);
             }}
             method="POST"
             autoComplete="off"

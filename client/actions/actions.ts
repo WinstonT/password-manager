@@ -14,7 +14,7 @@ export async function getEntriesData(): Promise<Entry[]> {
   return entries;
 }
 
-export const handleSubmit = async (formData: FormData) => {
+export const createEntry = async (formData: FormData) => {
   const website = formData.get("Website");
   const username = formData.get("Username");
   const password = formData.get("Password");
@@ -24,6 +24,17 @@ export const handleSubmit = async (formData: FormData) => {
       website,
       username,
       password,
+    })
+    .then(() => {
+      revalidatePath("/");
+    });
+};
+
+export const deleteEntry = async (id: number) => {
+  console.log("eee");
+  await axios
+    .delete(`${process.env.API_URL}`, {
+      data: { id },
     })
     .then(() => {
       revalidatePath("/");
