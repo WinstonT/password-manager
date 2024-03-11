@@ -30,8 +30,22 @@ export const createEntry = async (formData: FormData) => {
     });
 };
 
+export const editEntry = async (id: number, formData: FormData) => {
+  const username = formData.get("Username");
+  const password = formData.get("Password");
+
+  await axios
+    .put(`${process.env.API_URL}`, {
+      id,
+      username,
+      password,
+    })
+    .then(() => {
+      revalidatePath("/");
+    });
+};
+
 export const deleteEntry = async (id: number) => {
-  console.log("eee");
   await axios
     .delete(`${process.env.API_URL}`, {
       data: { id },
