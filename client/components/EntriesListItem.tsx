@@ -79,7 +79,7 @@ export default function EntriesListItem({
       )}
       {isEditing ? (
         <input
-          name="password"
+          name="Password"
           className="border border-gray-500 rounded-md w-4/12"
           defaultValue={entry.Password}
         />
